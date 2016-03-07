@@ -19,12 +19,26 @@ repositories {
 	}
 }
 
+buildscript {
+
+    repositories {
+        maven {
+            url "http://nexus:8081/nexus/content/groups/public"
+        }
+    }
+    dependencies {
+        classpath 'org.springframework:springloaded:1.2.5.RELEASE'
+    }
+}
+
+
 
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-hateoas'
 	compile "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
     compile project(":blackfriar-services")
     compile 'javax.inject:javax.inject:1'
+
 
     //compile 'org.springframework.boot:spring-boot-starter-actuator'
     //compile 'org.springframework.boot:spring-boot-starter-hateoas'
@@ -36,6 +50,8 @@ dependencies {
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 
 }
+
+//mainClassName = 'com.foo'
 
 
 
@@ -51,4 +67,6 @@ idea {
         outputDir = file("$buildDir/classes/main/")
     }
 }
+
+
 
