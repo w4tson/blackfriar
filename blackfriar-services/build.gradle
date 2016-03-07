@@ -1,0 +1,6 @@
+apply plugin: 'java'
+
+dependencies {
+    compile project(':blackfriar-persistence')
+    compile "org.springframework:spring-context:${springBootVersion}"
+}
