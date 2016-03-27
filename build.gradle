@@ -1,4 +1,4 @@
-def javaProjects = [ project(':blackfriar-web'), project(':blackfriar-services'), project(':blackfriar-persistence')]
+def javaProjects = [ project(':blackfriar-web'), project(':blackfriar-services'), project(':blackfriar-persistence'), project(':blackfriar-common') ]
 
 buildscript {
     ext {
@@ -15,6 +15,7 @@ buildscript {
         classpath "com.moowork.gradle:gradle-gulp-plugin:0.9"
         classpath "org.ajoberstar:gradle-git:1.3.2"
         classpath "com.netflix.nebula:nebula-project-plugin:3.0.3"
+        classpath 'org.springframework:springloaded:1.2.5.RELEASE'
         configurations.classpath {
             exclude module: 'svnkit'
             exclude module: 'p4java-jfrog'
@@ -26,6 +27,7 @@ buildscript {
 
 configure(javaProjects) {
     apply plugin: 'java'
+    apply plugin: 'idea'
     apply plugin: 'io.spring.dependency-management'
 
     dependencyManagement {
@@ -33,8 +35,6 @@ configure(javaProjects) {
             mavenBom "org.springframework.boot:spring-boot-parent:${springBootVersion}"
         }
     }
-
-
 
     repositories {
         maven {
@@ -48,6 +48,14 @@ configure(javaProjects) {
         testCompile 'org.springframework.boot:spring-boot-starter-test'
         testRuntime 'com.h2database:h2'
     }
+
+    idea {
+        module {
+            inheritOutputDirs = false
+            outputDir = file("$buildDir/classes/main/")
+        }
+    }
+
 
 
 }

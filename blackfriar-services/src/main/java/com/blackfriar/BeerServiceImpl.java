@@ -1,6 +1,5 @@
 package com.blackfriar;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -13,7 +12,7 @@ import java.util.List;
 public class BeerServiceImpl implements BeerService {
 
     @Override
-    public List<com.blackfriar.Beer> getAllBeers() {
+    public List<Beer> getAllBeers() {
 
         return Arrays.asList(new Beer());
     }

@@ -1,3 +1,3 @@
 rootProject.name = 'blackfriar'
 
-include 'blackfriar-web', 'blackfriar-services', 'blackfriar-persistence'
+include 'blackfriar-web', 'blackfriar-services', 'blackfriar-persistence', 'blackfriar-common'
