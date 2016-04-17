@@ -1,6 +1,7 @@
 package com.blackfriar;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -9,4 +10,6 @@ import java.util.List;
 public interface BeerService {
 
     List<Beer> getAllBeers();
+
+    Optional<Beer> getById(Long id);
 }

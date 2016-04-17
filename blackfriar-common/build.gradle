@@ -1,5 +1,7 @@
 apply plugin: 'java'
 
 dependencies {
+    compile project(':blackfriar-persistence')
     compile 'org.springframework.boot:spring-boot-starter-hateoas'
+    compile 'org.atteo:evo-inflector:1.2'
 }

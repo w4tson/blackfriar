@@ -1,6 +1,5 @@
-package com.example;
+package com.blackfriar;
 
-import com.blackfriar.Blackfriar;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
