@@ -1,11 +1,8 @@
 package com.blackfriar.assemblers;
 
-import com.blackfriar.Beer;
+import com.blackfriar.domain.Beer;
 import com.blackfriar.controllers.BeerController;
 import com.blackfriar.resources.BeerResource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.RelProvider;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 

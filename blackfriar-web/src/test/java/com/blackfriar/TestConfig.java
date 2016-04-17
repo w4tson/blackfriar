@@ -3,6 +3,7 @@ package com.blackfriar;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import static org.mockito.Mockito.mock;
@@ -17,7 +18,13 @@ public class TestConfig {
 
 
     @Bean
+    @Primary
     public BeerService getBeerService() {
         return mock(BeerService.class);
     }
+
+    @Bean
+    @Primary
+    public BeerRepository beerRepository() {
+        return mock(BeerRepository.class);}
 }

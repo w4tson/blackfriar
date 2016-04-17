@@ -1,12 +1,23 @@
-package com.blackfriar;
+package com.blackfriar.domain;
+
+import org.hibernate.annotations.CollectionId;
+
+import javax.persistence.*;
 
 /**
  * Created by paulwatson on 06/03/2016.
  */
+@Entity
 public class Beer {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+    @Column
     private String name;
+
+    @Column(precision = 4)
     private Long price;
 
     public Long getId() {

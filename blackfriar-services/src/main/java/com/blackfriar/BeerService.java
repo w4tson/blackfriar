@@ -1,5 +1,7 @@
 package com.blackfriar;
 
+import com.blackfriar.domain.Beer;
+
 import java.util.List;
 import java.util.Optional;
 

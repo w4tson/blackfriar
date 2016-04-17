@@ -1,6 +1,6 @@
 package com.blackfriar.controllers;
 
-import com.blackfriar.Beer;
+import com.blackfriar.domain.Beer;
 import com.blackfriar.BeerService;
 import com.blackfriar.assemblers.BeerResourceAssembler;
 import com.blackfriar.exceptions.BeerNotFoundException;
@@ -14,15 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 
 
