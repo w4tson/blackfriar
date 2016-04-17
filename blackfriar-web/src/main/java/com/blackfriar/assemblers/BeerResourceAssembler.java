@@ -39,9 +39,7 @@ public class BeerResourceAssembler extends ResourceAssemblerSupport<Beer, BeerRe
         beerResource.setPrice(entity.getPrice());
         beerResource.setUrn(entity.getId());
 
-
         beerResource.add(linkTo(methodOn(BeerController.class).findById(entity.getId())).withSelfRel());
-
 
         return beerResource;
     }
