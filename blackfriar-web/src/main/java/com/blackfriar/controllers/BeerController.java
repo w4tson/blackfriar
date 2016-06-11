@@ -24,7 +24,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 
 @Controller
-@RequestMapping(path="/", produces = MediaTypes.HAL_JSON_VALUE)
+@RequestMapping(path="/api", produces = MediaTypes.HAL_JSON_VALUE)
 public class BeerController {
 
     @Autowired
