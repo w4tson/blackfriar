@@ -30,8 +30,8 @@ buildscript {
 dependencies {
     compile project(":blackfriar-services")
     compile project(":blackfriar-common")
+    compile project(":blackfriar-ui")
     compile 'org.springframework.boot:spring-boot-starter-hateoas'
-    //compile "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
     compile 'javax.inject:javax.inject:1'
     compile 'com.fasterxml.jackson.core:jackson-annotations'
     compile 'com.fasterxml.jackson.core:jackson-core'
@@ -47,6 +47,10 @@ dependencies {
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'com.jayway.jsonpath:json-path:'
+}
+
+bootRun {
+    addResources = true
 }
 
 

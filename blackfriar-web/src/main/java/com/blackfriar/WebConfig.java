@@ -12,7 +12,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * Created by paulwatson on 28/03/2016.
  */
 @Configuration
-@EnableWebMvc
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class WebConfig extends WebMvcConfigurerAdapter {
 
