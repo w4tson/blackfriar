@@ -1,7 +1,9 @@
+create sequence seq_beer increment by 1;
+
 create table beer (
-  id bigint auto_increment,
+  id number,
   name varchar2(50),
-  price  bigint
+  price  number
 );
 
 insert into beer values (1, 'Beavertown', 10);

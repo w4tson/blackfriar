@@ -4,14 +4,15 @@ import org.hibernate.annotations.CollectionId;
 
 import javax.persistence.*;
 
-/**
- * Created by paulwatson on 06/03/2016.
- */
+
+@SequenceGenerator(name = "seq_beer",
+        sequenceName = "seq_beer",
+        allocationSize = 1)
 @Entity
 public class Beer {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_beer")
     private Long id;
 
     @Column
