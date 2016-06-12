@@ -15,6 +15,8 @@ buildscript {
         classpath "com.moowork.gradle:gradle-gulp-plugin:0.9"
         classpath "org.ajoberstar:gradle-git:1.3.2"
         classpath "com.netflix.nebula:nebula-project-plugin:3.0.3"
+        classpath 'com.bmuschko:gradle-docker-plugin:3.0.0'
+
         //classpath 'org.springframework:springloaded:1.2.5.RELEASE'
         configurations.classpath {
             exclude module: 'svnkit'
@@ -23,6 +25,10 @@ buildscript {
         }
     }
 }
+//apply from:  'gradle/docker.gradle'
+apply plugin: 'com.bmuschko.docker-remote-api'
+
+
 
 
 configure(javaProjects) {
@@ -55,7 +61,43 @@ configure(javaProjects) {
             outputDir = file("$buildDir/classes/main/")
         }
     }
+}
 
 
 
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
+ext {
+    dockerBuildDir =  project.file('build/docker')
+}
+
+task gatherDockerArtifacts(type: Copy, dependsOn: ':blackfriar-web:assemble') {
+    from(project('blackfriar-web').buildDir.absolutePath + "/libs/blackfriar-web-${project.version}" + '.jar') {
+        rename '(blackfriar-web)(.*).jar', '$1.jar'
+    }
+    into dockerBuildDir
+}
+
+task createDockerfile(type: Dockerfile, dependsOn: 'gatherDockerArtifacts') {
+    destFile = new File(dockerBuildDir, 'Dockerfile')
+    from 'anapsix/alpine-java:latest'
+    maintainer 'Paul Watson'
+    addFile 'blackfriar-web.jar', '.'
+    defaultCommand 'java', '-jar', 'blackfriar-web.jar'
+}
+
+task buildDockerImage(type: DockerBuildImage) {
+    dependsOn createDockerfile
+    inputDir = createDockerfile.destFile.parentFile
+    tag = 'w4tson/blackfriar'
+}
+
+buildDockerImage << {
+    //socat TCP-LISTEN:2375,range=127.0.0.1/32,reuseaddr,fork UNIX:/var/run/docker.sock
+    //https://www.ivankrizsan.se/2016/05/21/docker-api-over-http-on-mac-os-x-with-docker-for-mac-beta/
+    println '**********'
+    println 'Remember to run the alias dockertrick because the docker for mac beta does not operate over http'
+    println '\nsocat TCP-LISTEN:2375,range=127.0.0.1/32,reuseaddr,fork UNIX:/var/run/docker.sock\n'
+    println '**********'
 }
