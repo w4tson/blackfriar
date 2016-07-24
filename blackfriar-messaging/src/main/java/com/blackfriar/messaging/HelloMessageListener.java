@@ -9,6 +9,8 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 /**
  * Created by paulwatson on 24/07/2016.
  */
@@ -24,7 +26,13 @@ public class HelloMessageListener {
 
     )
     public void processHelloMessage(@Payload byte [] payload){
-        log.info("Message: {}", new String(payload));
+        String message = new String(payload);
+        if (Objects.equals(message, "hello")) {
+            log.info("Message: {}", message);
+        } else {
+            log.error("BAD message");
+            throw new IllegalArgumentException();
+        }
     }
 
 }
