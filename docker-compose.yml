@@ -1,0 +1,11 @@
+db:
+  image: w4tson/oracle-xe-11g
+  expose:
+    - 1521
+
+blackfriar:
+  image: w4tson/blackfriar
+  links:
+   - db
+  expose:
+   - "8080"
