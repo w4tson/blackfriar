@@ -1,4 +1,3 @@
-def javaProjects = [ project(':blackfriar-web'), project(':blackfriar-services'), project(':blackfriar-persistence'), project(':blackfriar-common') ]
 
 buildscript {
     ext {
@@ -31,7 +30,7 @@ apply plugin: 'com.bmuschko.docker-remote-api'
 
 
 
-configure(javaProjects) {
+subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
     apply plugin: 'io.spring.dependency-management'
