@@ -1,0 +1,1 @@
+docker run -p1521:1521 w4tson/oracle-xe-11g
