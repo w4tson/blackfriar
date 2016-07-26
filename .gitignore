@@ -1,5 +1,4 @@
 ### Gradle template
-\.gradle
 build/
 
 # Ignore Gradle GUI config
