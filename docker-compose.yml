@@ -1,7 +1,7 @@
 db:
   image: w4tson/oracle-xe-11g
-  expose:
-    - 1521
+  ports:
+    - "1521:1521"
 
 rabbitmq:
   image: rabbitmq:3-management
