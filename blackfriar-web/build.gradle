@@ -40,12 +40,12 @@ dependencies {
     compile 'org.flywaydb:flyway-core:4.0'
     compile files("$projectDir/lib/ojdbc6.jar")
 
-    //compile 'org.springframework.boot:spring-boot-starter-actuator'
-    //compile 'org.springframework.boot:spring-boot-starter-hateoas'
-    //compile 'org.springframework.boot:spring-boot-starter-mustache'
-    //compile 'org.springframework.boot:spring-boot-starter-web'
-    //org.springframework.security:spring-security-ldap
-    //
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile 'org.springframework.boot:spring-boot-starter-hateoas'
+    compile 'org.springframework.boot:spring-boot-starter-mustache'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.security:spring-security-ldap'
+
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'com.jayway.jsonpath:json-path:'
