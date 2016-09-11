@@ -60,11 +60,11 @@ public class BeerControllerTest {
         when(beerService.getById(anyLong())).thenReturn(Optional.of(beer));
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                .get("/beers/1")
+                .get("/api/beers/1")
                 .accept(MediaTypes.HAL_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.links[0].href", is("http://localhost/beers/1")));
+                .andExpect(jsonPath("$.links[0].href", is("http://localhost/api/beers/1")));
 
 
     }
