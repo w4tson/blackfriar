@@ -1,5 +1,5 @@
 db:
-  image: w4tson/oracle-xe-11g
+  build: ./docker/oracle
   ports:
     - "1521:1521"
 
