@@ -1,4 +1,4 @@
-
+println System.env
 
 buildscript { scriptHandler->
     apply from: 'repositories.gradle', to: scriptHandler
