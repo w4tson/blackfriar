@@ -30,8 +30,8 @@ apply plugin: 'org.owasp.dependencycheck'
 
 allprojects {
     //conditionally switch out different repository config if building via continuous integration
-    def repo = project.hasProperty('CI') ? '-ci' : '';
-    apply from: "${rootDir}/repositories${repos}.gradle"
+    ext.repo = project.hasProperty('CI') ? '-ci' : '';
+    apply from: "${rootDir}/repositories${ext.repo}.gradle"
 }
 
 subprojects { proj ->
