@@ -1,18 +1,5 @@
 
 
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'spring-boot'
-
-
-repositories {
-	repositories {
-		maven {
-			url "http://nexus:8081/nexus/content/groups/public"
-		}
-	}
-}
 
 buildscript {
     repositories {
@@ -22,10 +9,24 @@ buildscript {
     }
     dependencies {
         classpath 'org.springframework:springloaded:1.2.5.RELEASE'
+        classpath files("$projectDir/lib/ojdbc6.jar")
     }
 }
 
+plugins {
+    id "org.flywaydb.flyway" version "4.0.3"
+}
 
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+
+flyway {
+    url = 'jdbc:oracle:thin:@localhost:1521:xe'
+    user = 'blackfriar'
+    password = 'password'
+}
 
 dependencies {
     compile project(":blackfriar-services")
@@ -37,7 +38,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations'
     compile 'com.fasterxml.jackson.core:jackson-core'
     compile 'com.h2database:h2:1.4.191'
-    compile 'org.flywaydb:flyway-core:4.0'
+    compile 'org.flywaydb:flyway-core:4.0.3'
     compile files("$projectDir/lib/ojdbc6.jar")
 
     compile 'org.springframework.boot:spring-boot-starter-actuator'
