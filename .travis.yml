@@ -5,3 +5,7 @@ jdk:
 
 env:
   - ORG_GRADLE_PROJECT_CI=true
+
+cache:
+  directories:
+  - $HOME/.gradle
