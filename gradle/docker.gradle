@@ -1,4 +1,4 @@
-buildscript { scriptHandler->
+buildscript { scriptHandler ->
     apply from: "${rootDir}/repositories.gradle", to: scriptHandler
 
     dependencies {

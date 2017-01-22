@@ -4,4 +4,20 @@ dependencies {
     compile project(':blackfriar-persistence')
     compile 'org.springframework.boot:spring-boot-starter-hateoas'
     compile 'org.atteo:evo-inflector:1.2'
+    compile 'org.projectlombok:lombok:1.16.10'
+}
+
+configurations {
+    testLib {
+        extendsFrom testRuntime
+    }
+}
+
+task testLibJar(type: Jar) {
+    from sourceSets.test.output
+    classifier 'test-lib'
+}
+
+artifacts {
+    testLib testLibJar
 }

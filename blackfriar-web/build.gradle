@@ -50,14 +50,12 @@ dependencies {
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'com.jayway.jsonpath:json-path:'
+    testCompile project(path : ':blackfriar-common', configuration: 'testLib')
 }
 
 bootRun {
     addResources = true
 }
-
-
-
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.9'

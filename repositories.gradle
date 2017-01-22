@@ -1,6 +1,25 @@
+// This looks ugly and it is but it's a decent workaround so you don't have
+// to configure repositories multiple times. The problem is that there is no
+// access to the project from ScriptHandler interface
+
+Properties getGradleHomeProps() {
+    def s = new File("${System.getenv("HOME")}/.gradle/gradle.properties").text
+
+    final Properties p = new Properties()
+    p.load(new StringReader(s))
+    return p
+}
+def privateMavenRepo = getGradleHomeProps().privateMavenRepo
+
 repositories {
 
-    maven {
-        url "http://nexus:8081/nexus/content/groups/public"
+    if (privateMavenRepo) {
+        maven {
+            url privateMavenRepo
+        }
     }
+    else {
+        jcenter()
+    }
+
 }
