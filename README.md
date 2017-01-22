@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/w4tson/blackfriar.svg?branch=master)](https://travis-ci.org/w4tson/blackfriar)
+
 Example Java app written in Spring Boot
 
 # Getting Started
