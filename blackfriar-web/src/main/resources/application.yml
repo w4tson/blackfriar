@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    username: blackfriar
+    password: password
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+  rabbitmq:
+    host: localhost
+
+server:
+  requestLogging:
+    enabled: true
+    pattern: /*
+
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /docs/swagger

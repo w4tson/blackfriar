@@ -5,6 +5,10 @@ import com.blackfriar.BeerService;
 import com.blackfriar.assemblers.BeerResourceAssembler;
 import com.blackfriar.exceptions.BeerNotFoundException;
 import com.blackfriar.resources.BeerResource;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.MediaTypes;
@@ -34,6 +38,10 @@ public class BeerController {
     private BeerResourceAssembler beerResourceAssembler;
 
 
+    @ApiOperation("Get all the known beers")
+    @ApiResponses({
+        @ApiResponse(code = 404, message = "No beers could be found")
+    })
     @RequestMapping(value = "beers", produces = MediaTypes.HAL_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> getAllBeers() {
@@ -45,8 +53,12 @@ public class BeerController {
 
     }
 
+    @ApiOperation("Get a beer by it's unique id")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "The beer")
+    })
     @RequestMapping(value = "beers/{id}", produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<BeerResource> findById(@PathVariable Long id) {
+    public ResponseEntity<BeerResource> findById(@ApiParam("The unique identifier of the beer") @PathVariable Long id) {
         Beer beer = beerService.getById(id)
                 .orElseThrow(() -> new BeerNotFoundException());
         BeerResource beerResource = beerResourceAssembler.toResource(beer);
