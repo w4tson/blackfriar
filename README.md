@@ -19,7 +19,6 @@ Example Java app written in Spring Boot
 # Todo
 
  * spring security + docker ldap
- * swagger docs
  * consider webpack/gulp
  * Pe-Process Jinja2 config
  * Ansible
