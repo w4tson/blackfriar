@@ -2,6 +2,7 @@ apply plugin: 'java'
 
 dependencies {
     compile project(':blackfriar-persistence')
+    compile project(':blackfriar-common')
     compile 'org.springframework.boot:spring-boot-starter'
 
 }

@@ -5,6 +5,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-hateoas'
     compile 'org.atteo:evo-inflector:1.2'
     compile 'org.projectlombok:lombok:1.16.10'
+    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.8.1'
 }
 
 configurations {
