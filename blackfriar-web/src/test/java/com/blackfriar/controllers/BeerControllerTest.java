@@ -1,21 +1,23 @@
-package com.blackfriar;
+package com.blackfriar.controllers;
 
+import com.blackfriar.BeerService;
+import com.blackfriar.config.TestConfig;
+import com.blackfriar.controllers.BeerController;
 import com.blackfriar.domain.Beer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -25,15 +27,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * Created by paulwatson on 27/03/2016.
- */
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration(value = "src/main/java")
-@ContextConfiguration(classes = { TestConfig.class })
+@RunWith(SpringRunner.class)
+@WebAppConfiguration
+@ContextConfiguration(classes = { TestConfig.class, BeerController.class})
 public class BeerControllerTest {
 
-    @Autowired
+    @MockBean
     private BeerService beerService;
 
     @Autowired
@@ -43,11 +42,7 @@ public class BeerControllerTest {
 
     @Before
     public void setup() {
-
-        //this.mockMvc = standaloneSetup(new BeerController()).build();
-
         mockMvc = MockMvcBuilders.webAppContextSetup(this.ctx).build();
-
     }
 
     @Test
