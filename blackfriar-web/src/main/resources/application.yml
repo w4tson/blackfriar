@@ -11,6 +11,9 @@ spring:
     database-platform: org.hibernate.dialect.Oracle10gDialect
   rabbitmq:
     host: localhost
+  output:
+    ansi:
+      enabled: always
 
 server:
   requestLogging:
