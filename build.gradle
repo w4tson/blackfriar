@@ -1,4 +1,4 @@
-buildscript { scriptHandler->
+buildscript { scriptHandler ->
     apply from: "${rootDir}/repositories.gradle", to: scriptHandler
 
     ext {
@@ -42,11 +42,7 @@ subprojects { proj ->
         }
     }
 
-    repositories {
-        maven {
-            url "http://nexus:8081/nexus/content/groups/public"
-        }
-    }
+    apply from: "${rootDir}/repositories.gradle", to: proj
 
     dependencies {
         compile 'org.springframework.boot:spring-boot-starter-logging'
