@@ -1,3 +1,4 @@
+import com.blackfriar.gradle.Jinja2Task
 
 buildscript { script ->
     apply from: "${rootDir}/repositories.gradle", to: script
@@ -57,6 +58,12 @@ bootRun {
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.9'
 }
+
+//task processLocalApplicationYaml(type: Jinja2Task) {
+//    from file("ansibledir/roles/blackfriar/templates/application.yml.j2")
+//    into "$project.buildDir/generated-config"
+//    bindingsFiles files("ansibledir/group_vars/local", "ansibledir/roles/blackfriar/defaults/main.yml")
+//}
 
 
 

@@ -5,7 +5,7 @@
 Properties getGradleHomeProps() {
     Properties p = new Properties();
     try {
-        def s = new File("${System.getenv("HOME")}/.gradle/gradle.properties2").text
+        def s = new File("${System.getenv("HOME")}/.gradle/gradle.properties").text
         p.load(new StringReader(s))
     } catch (Exception e) {
         println "No gradle.properties found in user home"
