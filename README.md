@@ -29,3 +29,8 @@ Example Java app written in Spring Boot
  * Custom developer gradle tasks for sending AMQP messages
  * Gradle release plugin
  * ReactJS + Redux UI
+ * Test jar. Instead of spaghetti junction dependencies 
+ * Look into leveraging the 'java-library' plugin in gradle   
+ * assertJ 
+ * Readme instructions on how to run 
+ * upgrade to SpringBoot 1.5
