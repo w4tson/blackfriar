@@ -16,7 +16,10 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'application'
 apply plugin: 'spring-boot'
+
+apply from: "../gradle/rpm.gradle"
 
 flyway {
     url = 'jdbc:oracle:thin:@localhost:1521:xe'

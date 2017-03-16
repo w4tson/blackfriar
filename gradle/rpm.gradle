@@ -1,0 +1,65 @@
+//Everything needed to patch
+
+buildscript { scriptHandler ->
+    apply from: "${rootDir}/repositories.gradle", to: scriptHandler
+
+    dependencies {
+        classpath 'com.netflix.nebula:nebula-ospackage-plugin:3.1.0'
+    }
+}
+
+// Using the class here is important. This syntax allows this script to be
+// applied using `apply from: 'someScript.gradle`.
+apply plugin: com.netflix.gradle.plugins.packaging.SystemPackagingPlugin
+
+ext.blackfriarFolder = "/opt/$project.name"
+ext.release = 1 //TODO: derive from git metadata
+ext.epoch   = 1 //TODO: derive from git metadata
+
+ospackage {
+    version = project.version.replaceAll('-SNAPSHOT', '')
+    release = project.ext.release //derived from git metadata, the number of commits since last tag
+    epoch = project.ext.epoch
+    os = LINUX
+    into blackfriarFolder
+    user project.name
+    permissionGroup project.name
+    includeEmptyDirs true
+
+    directory(blackfriarFolder, 0750)
+    directory("${blackfriarFolder}/lib", 0750)
+    directory("${blackfriarFolder}/bin", 0750)
+    directory("${blackfriarFolder}/config", 0750)
+    directory("${blackfriarFolder}/config/ssl", 0750)
+    directory("${blackfriarFolder}/wwww", 0750)
+    directory("/var/lib/$project.name", 0750)
+
+    from(jar.outputs.files){
+        into 'lib'
+        fileMode 0640
+    }
+
+    from(configurations.runtime) {
+        into 'lib'
+        fileMode 0640
+    }
+
+    from('src/main/resources') {
+        into 'config'
+        include 'banner.txt'
+        fileType CONFIG
+        fileMode 0640
+    }
+
+    from('build/scripts') {
+        into 'bin'
+        fileMode 0755
+    }
+}
+
+buildRpm.dependsOn(startScripts)  //startScripts comes from the gradle Application plugin
+assemble.dependsOn(buildRpm)
+
+artifacts {
+    archives buildRpm
+}
