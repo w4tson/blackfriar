@@ -1,0 +1,36 @@
+buildscript { scriptHandler ->
+    apply from: "${rootDir}/repositories.gradle", to: scriptHandler
+
+    dependencies {
+        classpath 'org.ajoberstar:gradle-git:1.3.2'
+        configurations.classpath {
+            exclude module: 'svnkit'
+            exclude module: 'p4java-jfrog'
+        }
+    }
+}
+
+apply plugin: org.ajoberstar.gradle.git.base.GrgitPlugin
+
+ext.description = grgit.describe()
+
+def versionSplitEnd = ext.description.indexOf('-')
+def releaseSplitEnd = ext.description.lastIndexOf('-')
+ext.version = versionSplitEnd > 0 ? ext.description.substring(0, versionSplitEnd) : ext.description
+ext.version = versionSplitEnd > 0 ? ext.description.substring(versionSplitEnd + 1, releaseSplitEnd > 0 ? releaseSplitEnd : ext.description.length) : 0
+ext.epoch = grgit.log(includes:['HEAD']).size()
+ext.commit = grgit.head()?.abbreviatedId ?: 'unknown'
+ext.branch = grgit.branch.current?.name ?: 'detached HEAD'
+
+task gitMetadata {
+    doLast {
+        group 'git'
+
+        ext {
+            version = project.ext.description
+            branch = project.ext.branch
+            commitId = project.ext.commit
+            commitTime = grgit.head()?.date.format('yyyy-MM-dd HH:mm') ?: 'Unknown'
+        }
+    }
+}

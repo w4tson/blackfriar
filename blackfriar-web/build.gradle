@@ -1,10 +1,13 @@
 import com.blackfriar.gradle.Jinja2Task
 
+import java.util.regex.Matcher
+
 buildscript { script ->
     apply from: "${rootDir}/repositories.gradle", to: script
 
     dependencies {
         classpath 'org.springframework:springloaded:1.2.5.RELEASE'
+        classpath 'net.researchgate:gradle-release:2.3.0'
         classpath files("$projectDir/lib/ojdbc6.jar")
     }
 }
@@ -17,9 +20,12 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'application'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'maven-publish'
+apply plugin: 'net.researchgate.release'
 
-apply from: "../gradle/rpm.gradle"
+apply from: '../gradle/git-metadata.gradle'
+apply from: '../gradle/rpm.gradle'
 
 flyway {
     url = 'jdbc:oracle:thin:@localhost:1521:xe'
@@ -67,6 +73,77 @@ task wrapper(type: Wrapper) {
 //    into "$project.buildDir/generated-config"
 //    bindingsFiles files("ansibledir/group_vars/local", "ansibledir/roles/blackfriar/defaults/main.yml")
 //}
+
+publishing {
+    repositories {
+        maven {
+            if (project.version.endsWith('-SNAPSHOT')) {
+                url 'http://nexus/content/repositories/snapshots'
+            } else {
+                url 'http://nexus/content/repositories/releases'
+            }
+            credentials {
+                println nexusUsername
+                println nexusPassword
+                username findProperty('nexusUsername')
+                password findProperty('nexusPassword')
+            }
+        }
+    }
+    publications {
+        web(MavenPublication) {
+            artifact buildRpm
+            //todo javadoc
+            groupId 'com.blackfriar'
+//            artifact packageJavadoc {
+//                classifier 'javadoc'
+//            }
+            //todo: sources
+        }
+    }
+}
+
+//increments the minor version
+def releaseVersionPatterns = [
+        /(d+)\.(\d+)\.(\d+).*$/: { Matcher m, Project p ->
+            m.replaceAll("${m[0][1]}.${(m[0][2] as int) + 1}.${m[0][3]}")
+        }
+]
+
+//increments the patch version
+def fixOnFailVersionPatterns = [
+        /(d+)\.(\d+)\.(\d+).*$/: { Matcher m, Project p ->
+            m.replaceAll("${m[0][1]}.${m[0][2]}.${(m[0][3] as int) + 1 }")
+        }
+]
+
+release {
+    failOnCommitNeeded = true
+    failOnSnapshotDependencies = false
+    failOnPublishNeeded = true
+    versionPropertyFile = "${rootDir}/gradle.properties"
+    buildTasks = ['build']
+    git {
+        requireBranch = 'master|release/.*'
+        pushToRemote = 'origin'
+    }
+}
+afterReleaseBuild.dependsOn publish
+
+
+//Checks the brach is 'release' and increments the patch version
+//Already released at x.y.0, so this creates x.y.1 which
+//then makes the release plugin behave as normal
+task initializeFixOnFailVersion {
+    outputs.upToDateWhen { false }
+    if (project.ext.branch.startsWith('release') && project.version.endsWith('.0')) {
+        dependsOn createScmAdapter, initScmAdapter, updaterVersion, commitNewVersion
+        initScmAdapter.mustRunAfter createScmAdapter
+        updateVersion.mustRunAfter initScmAdapter
+        commitNewVersion.mustRunAfter updateVersion
+    }
+    dependsOn gitMetadata
+}
 
 
 
