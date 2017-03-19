@@ -36,11 +36,14 @@ task buildDockerImage(type: DockerBuildImage) {
     tag = 'w4tson/blackfriar'
 }
 
-buildDockerImage << {
-    //socat TCP-LISTEN:2375,range=127.0.0.1/32,reuseaddr,fork UNIX:/var/run/docker.sock
-    //https://www.ivankrizsan.se/2016/05/21/docker-api-over-http-on-mac-os-x-with-docker-for-mac-beta/
-    println '**********'
-    println '\nRemember to run the alias dockertrick because the docker for mac beta does not operate over http'
-    println '\nsocat TCP-LISTEN:2375,range=127.0.0.1/32,reuseaddr,fork UNIX:/var/run/docker.sock\n'
-    println '**********'
+buildDockerImage {
+
+    doLast {
+        //socat TCP-LISTEN:2375,range=127.0.0.1/32,reuseaddr,fork UNIX:/var/run/docker.sock
+        //https://www.ivankrizsan.se/2016/05/21/docker-api-over-http-on-mac-os-x-with-docker-for-mac-beta/
+        println '**********'
+        println '\nRemember to run the alias dockertrick because the docker for mac beta does not operate over http'
+        println '\nsocat TCP-LISTEN:2375,range=127.0.0.1/32,reuseaddr,fork UNIX:/var/run/docker.sock\n'
+        println '**********'
+    }
 }
