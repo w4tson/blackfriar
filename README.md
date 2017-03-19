@@ -5,8 +5,8 @@ Example Java app written in Spring Boot
 # Getting Started
 
 
- * `docker-compose up`
- *  `gradle clean bootRun`
+ * `docker-compose up -d`
+ * `./gradlew clean bootRun`
 
 # Features
 
