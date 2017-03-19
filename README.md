@@ -5,8 +5,8 @@ Example Java app written in Spring Boot
 # Getting Started
 
 
- * `docker-compose up`
- *  `gradle clean bootRun`
+ * `docker-compose up -d`
+ * `./gradlew clean bootRun`
 
 # Features
 
@@ -23,7 +23,7 @@ Example Java app written in Spring Boot
  * jcenter?
  * spring security + docker ldap
  * consider webpack/gulp
- * Pe-Process Jinja2 config
+ * Pre-Process Jinja2 config
  * Ansible
  * ~~RPM packaging~~
  * Hibernate interceptors

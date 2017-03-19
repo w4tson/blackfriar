@@ -25,3 +25,12 @@ springfox:
     swagger:
       v2:
         path: /docs/swagger
+
+management:
+  info:
+    git:
+      mode: full
+
+info:
+  env:
+    os: ${os.name}

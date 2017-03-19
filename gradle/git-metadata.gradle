@@ -12,12 +12,16 @@ buildscript { scriptHandler ->
 
 apply plugin: org.ajoberstar.gradle.git.base.GrgitPlugin
 
+if (grgit.describe() == null) {
+    // only applies if there are no annotated tags in this repo, i.e. no releases made yet
+    grgit.tag.add(name: '0.0.0', message: 'Initial tag', annotate: true, force: true)
+}
 ext.description = grgit.describe()
 
 def versionSplitEnd = ext.description.indexOf('-')
 def releaseSplitEnd = ext.description.lastIndexOf('-')
 ext.version = versionSplitEnd > 0 ? ext.description.substring(0, versionSplitEnd) : ext.description
-ext.version = versionSplitEnd > 0 ? ext.description.substring(versionSplitEnd + 1, releaseSplitEnd > 0 ? releaseSplitEnd : ext.description.length) : 0
+ext.release = versionSplitEnd > 0 ? ext.description.substring(versionSplitEnd + 1, releaseSplitEnd > 0 ? releaseSplitEnd : ext.description.length) : 0
 ext.epoch = grgit.log(includes:['HEAD']).size()
 ext.commit = grgit.head()?.abbreviatedId ?: 'unknown'
 ext.branch = grgit.branch.current?.name ?: 'detached HEAD'
