@@ -65,9 +65,6 @@ bootRun {
     addResources = true
 }
 
-task wrapper(type: Wrapper) {
-	gradleVersion = '2.9'
-}
 
 //task processLocalApplicationYaml(type: Jinja2Task) {
 //    from file("ansibledir/roles/blackfriar/templates/application.yml.j2")
