@@ -88,8 +88,6 @@ publishing {
                 url 'http://nexus/content/repositories/releases'
             }
             credentials {
-                println nexusUsername
-                println nexusPassword
                 username findProperty('nexusUsername')
                 password findProperty('nexusPassword')
             }
