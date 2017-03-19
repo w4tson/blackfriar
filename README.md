@@ -23,7 +23,7 @@ Example Java app written in Spring Boot
  * jcenter?
  * spring security + docker ldap
  * consider webpack/gulp
- * Pe-Process Jinja2 config
+ * Pre-Process Jinja2 config
  * Ansible
  * ~~RPM packaging~~
  * Hibernate interceptors
