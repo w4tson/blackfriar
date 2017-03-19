@@ -75,6 +75,10 @@ task wrapper(type: Wrapper) {
 //    bindingsFiles files("ansibledir/group_vars/local", "ansibledir/roles/blackfriar/defaults/main.yml")
 //}
 
+springBoot  {
+    buildInfo()
+}
+
 publishing {
     repositories {
         maven {

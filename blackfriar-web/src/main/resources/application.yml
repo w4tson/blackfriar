@@ -31,3 +31,6 @@ management:
     git:
       mode: full
 
+info:
+  env:
+    os: ${os.name}
