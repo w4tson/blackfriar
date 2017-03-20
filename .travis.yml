@@ -1,3 +1,5 @@
+sudo: required
+
 language: java
 
 jdk:
@@ -6,9 +8,15 @@ jdk:
 env:
   - ORG_GRADLE_PROJECT_CI=true
 
+services:
+  - docker
+
 cache:
   directories:
   - $HOME/.gradle
+
+scripts:
+  - ./gradlew check buildDockerImage
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
