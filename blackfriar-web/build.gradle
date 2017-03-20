@@ -14,7 +14,7 @@ buildscript { script ->
 
 plugins {
     id "org.flywaydb.flyway" version "4.0.3"
-    id "com.gorylenko.gradle-git-properties" version "1.4.16"
+    id "com.gorylenko.gradle-git-properties" version "1.4.16" //TODO: this is being resolved from 'https://plugins.gradle.org/m2/gradle/plugin'
 }
 
 apply plugin: 'java'
@@ -93,12 +93,13 @@ publishing {
     publications {
         web(MavenPublication) {
             artifact buildRpm
-            //todo javadoc
             groupId 'com.blackfriar'
-//            artifact packageJavadoc {
-//                classifier 'javadoc'
-//            }
-            //todo: sources
+            artifact packageJavadoc {
+                classifier 'javadoc'
+            }
+            artifact packageSources {
+                classifier 'sources'
+            }
         }
     }
 }

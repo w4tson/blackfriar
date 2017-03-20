@@ -18,8 +18,8 @@ Example Java app written in Spring Boot
 
 # Todo
 
- * packageJavadoc 
- * packageSources
+ * ~~packageJavadoc~~ 
+ * ~~packageSources~~
  * jcenter?
  * spring security + docker ldap
  * consider webpack/gulp
