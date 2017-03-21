@@ -15,13 +15,15 @@ ext {
     dockerBuildDir =  project.file('build/docker')
 }
 
-task gatherDockerArtifacts(type: Copy, dependsOn: ':blackfriar-web:assemble') {
+task gatherDockerArtifacts(type: Copy) {
     from(project('blackfriar-web').buildDir.absolutePath + "/libs/blackfriar-web-${project.version}" + '.jar') {
         rename '(blackfriar-web)(.*).jar', '$1.jar'
     }
     into dockerBuildDir
 }
 
+
+//TODO Switch from fat jar
 task createDockerfile(type: Dockerfile, dependsOn: 'gatherDockerArtifacts') {
     destFile = new File(dockerBuildDir, 'Dockerfile')
     from 'anapsix/alpine-java:latest'
@@ -34,6 +36,7 @@ task buildDockerImage(type: DockerBuildImage) {
     dependsOn createDockerfile
     inputDir = createDockerfile.destFile.parentFile
     tag = 'w4tson/blackfriar'
+    mustRunAfter ':blackfriar-web:jar'
 }
 
 buildDockerImage {
