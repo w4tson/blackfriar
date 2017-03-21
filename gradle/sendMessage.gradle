@@ -1,0 +1,8 @@
+import com.blackfriar.gradle.SendEvent
+
+task sendEvent ( type: SendEvent ) {
+
+    messageFile file("${projectDir}/blackfriar-messaging/src/test/resources/gradle/message.json")
+
+
+}
