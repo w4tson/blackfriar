@@ -5,17 +5,17 @@ language: java
 jdk:
   - oraclejdk8
 
+cache:
+  directories:
+  - $HOME/.gradle
+
 env:
   - ORG_GRADLE_PROJECT_CI=true
 
 services:
   - docker
 
-cache:
-  directories:
-  - $HOME/.gradle
-
-scripts:
+script:
   - ./gradlew build
 
 after_success:
