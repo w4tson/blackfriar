@@ -16,7 +16,7 @@ cache:
   - $HOME/.gradle
 
 scripts:
-  - ./gradlew check buildDockerImage
+  - ./gradlew build
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then

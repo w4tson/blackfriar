@@ -146,7 +146,4 @@ task initializeFixOnFailVersion {
     dependsOn gitMetadata
 }
 
-
-
-
-
+assemble.dependsOn ':buildDockerImage'
