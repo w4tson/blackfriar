@@ -4,7 +4,7 @@ db:
     - "1521:1521"
 
 rabbitmq:
-  image: rabbitmq:3-management
+  build: ./docker/rabbitmq
   hostname: rabbit
   ports:
    - "15672:15672"
