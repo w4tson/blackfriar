@@ -4,9 +4,19 @@ Example Java app written in Spring Boot
 
 # Getting Started
 
-
  * `docker-compose up -d`
  * `./gradlew clean bootRun`
+ 
+# Build docker image
+
+ * `./gradlew buildDockerImage`
+ 
+#### MacOS workaround
+
+ Little workaround for talking to an unsecured docker daemon on MacOS
+
+ * `brew install socat`
+ * `socat TCP-LISTEN:2375,range=127.0.0.1/32,reuseaddr,fork UNIX:/var/run/docker.sock`
 
 # Features
 
