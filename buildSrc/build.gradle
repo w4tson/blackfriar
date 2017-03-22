@@ -1,6 +1,6 @@
 apply plugin: 'groovy'
 
-apply from: "${rootDir}/../repositories.gradle"
+apply from: "${rootDir}/../gradle/repositories.gradle"
 
 dependencies {
     compile localGroovy()

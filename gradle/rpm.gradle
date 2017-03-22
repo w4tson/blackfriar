@@ -1,7 +1,7 @@
 //Everything needed to patch
 
 buildscript { scriptHandler ->
-    apply from: "${rootDir}/repositories.gradle", to: scriptHandler
+    apply from: "${rootDir}/gradle/repositories.gradle", to: scriptHandler
 
     dependencies {
         classpath 'com.netflix.nebula:nebula-ospackage-plugin:3.1.0'

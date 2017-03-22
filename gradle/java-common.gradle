@@ -1,0 +1,48 @@
+buildscript { scriptHandler ->
+    apply from: "${rootDir}/gradle/repositories.gradle", to: scriptHandler
+
+    dependencies {
+        classpath("io.spring.gradle:dependency-management-plugin:${springDependencyPluginVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'io.spring.dependency-management' //TODO ?
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-parent:${springBootVersion}"
+    }
+}
+
+apply from: "${rootDir}/gradle/repositories.gradle"
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-logging'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testRuntime 'com.h2database:h2'
+}
+
+task packageJavadoc(type: Jar, dependsOn: 'javadoc') {
+    from javadoc.destinationDir
+    classifier = 'javadoc'
+}
+
+task packageSources(type: Jar, dependsOn: classes) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives packageJavadoc
+    archives packageSources
+}
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
+}

@@ -3,7 +3,7 @@ import com.blackfriar.gradle.Jinja2Task
 import java.util.regex.Matcher
 
 buildscript { script ->
-    apply from: "${rootDir}/repositories.gradle", to: script
+    apply from: "${rootDir}/gradle/repositories.gradle", to: script
 
     dependencies {
         classpath 'org.springframework:springloaded:1.2.5.RELEASE'

@@ -1,5 +1,5 @@
 buildscript { scriptHandler ->
-    apply from: "${rootDir}/repositories.gradle", to: scriptHandler
+    apply from: "${rootDir}/gradle/repositories.gradle", to: scriptHandler
 
     dependencies {
         classpath 'org.ajoberstar:gradle-git:1.3.2'
