@@ -1,0 +1,40 @@
+{
+  "rabbit_version": "3.6.6",
+  "users": [
+    {
+      "name": "guest",
+      "password_hash": "qApffS2Epai8qZ9+HC870vrI1edWpWilgs6OHaNIN8p7Ng/O",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "guest",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "parameters": [],
+  "policies": [],
+  "queues": [],
+  "exchanges": [
+    {
+      "name": "blackfriar",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": []
+}

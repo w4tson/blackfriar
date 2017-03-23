@@ -7,4 +7,5 @@ dependencies {
     compile gradleApi()
     compile 'org.yaml:snakeyaml:1.16'
     compile 'com.hubspot.jinjava:jinjava:2.1.0'
+    compile 'com.rabbitmq:amqp-client:3.6.5'
 }

@@ -26,6 +26,7 @@ buildscript { scriptHandler ->
 }
 
 apply from: 'gradle/repositories.gradle'
+apply from:  'gradle/sendMessage.gradle'
 apply plugin: 'org.owasp.dependencycheck'
 apply from:  'gradle/docker.gradle'
 

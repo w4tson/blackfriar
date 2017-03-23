@@ -1,0 +1,4 @@
+{
+  "someProperty": "${someProp}",
+  "created": "${created}"
+}
