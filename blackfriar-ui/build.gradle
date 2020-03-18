@@ -1,2 +1,90 @@
 apply plugin: 'java'
+apply plguin: 'com.moowork.gulp'
 apply plugin: 'idea'
+
+node {
+    version = '8.9.3'
+    yarnVersion = '1.12.3'
+    download = true
+    // distBaseUrl = 'http://pathto/nodejs'
+    workDir = file("${System.properties['user.home']}/.gradle/nodejs")
+    nodeModulesDir = file("${project.projectDir}")
+}
+
+jar {
+    from 'dist'
+    eachFile { details ->
+        details.path = details.path.startsWith('META-INF') ?: 'static/' + details.path
+    }
+    def versionWithoutTimestamp = "${project.version}".replaceFirst(/\+d{8}T\d{6}Z/,'')
+    archiveName = "${project.name}-${versionWithoutTimestamp}.jar"
+    includeEmptyDirs = false
+}
+
+idea.module.excludeDirs += file("${project.projectDir}/node_modules")
+idea.module.excludeDirs += file("${project.projectDir}/.tmp")
+idea.module.excludeDirs += file("${project.projectDir}/dist")
+
+clean.dependsOn 'cleanDist'
+task cleanDist() {
+    doLast {
+        file("${project.projectDir}/dist").deleteDir()
+    }
+}
+
+task styleCheck(dependsOn: [ yarn ], type: NpmTask) {
+    args = ['run', 'style:check']
+}
+
+task lintCheck(dependsOn: [ yarn ], type: NpmTask) {
+    args = ['run', 'lint:check']
+}
+
+task webpackTest(dependsOn: [ yarn, 'styleCheck', 'lintCheck' ], type: NpmTask) {
+    args = ['run', 'test']
+}
+
+test.dependsOn 'webpackTest'
+
+task webpackBuild(dependsOn: [yarn], type: NpmTask) {
+    args = ['run', 'webpack']
+}
+def webpackSrc = new File(projectDir, "src")
+def webpackOutput = new File(projectDir, "dist")
+
+webpackBuild.inputs.dir webpackSrc
+webpackBuild.outputs.dir webpackOutput
+
+jar.dependsOn 'webpackBuild'
+webpackBuild.mustRunAfter 'webpackTest'
+
+def notPackagingUI(graph) {
+    !graph.allTasks.any { it.name.contains('buildRpm') || it.name.contains('createDockerfile') }
+}
+
+def isRunningWebpackTest(graph) {
+    graph.allTasks.any { it.name.contains('webpackTest') }
+}
+
+gradle.taskGraph.whenReady { graph ->
+    if (notPackagingUI(graph)) {
+        println "Running in dev mode, not bundling the UI"
+        compileJava.enabled = false
+        processResources.enabled = false
+        classes.enabled = false
+        nodeSetup.enabled = false
+        yarnSetup.enabled = false
+        yarn.enabled = false
+        webpackBuild.enabled = false
+        jar.enabled = false
+    }
+    if (isRunningWebpackTest(graph)) {
+        processResources.enabled = true
+        nodeSetup.enabled = true
+        yarnSetup.enabled = true
+        yarn.enabled = true
+    }
+}
+//project.afterEvaluate {
+//    yarnSetup.args += ['--registry=http://privaterepo', "--cafile=$projectDir/certs/ca.pem"]
+//}
